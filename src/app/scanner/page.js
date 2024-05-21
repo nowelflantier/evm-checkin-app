@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import styles from './Scanner.module.css';
@@ -11,7 +11,20 @@ export default function ScannerPage() {
   const [scannedData, setScannedData] = useState(null);
   const [message, setMessage] = useState('');
   const [lastScannedTime, setLastScannedTime] = useState(0);
+  const [cameraId, setCameraId] = useState(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const getCameras = async () => {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = devices.filter(device => device.kind === 'videoinput');
+      const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back')) || videoDevices[0];
+      setCameraId(backCamera.deviceId);
+    };
+
+    getCameras();
+  }, []);
+
 
   const extractUID = (qrData) => {
     if (qrData.startsWith('MECARD:UID:')) {
@@ -62,6 +75,9 @@ export default function ScannerPage() {
       style={previewStyle}
       onError={handleError}
       onScan={handleScan}
+      constraints={{
+        video: { deviceId: cameraId }
+      }}
     />
    {/* Remplace la caméra par une image de test */}
    {/* <img src="https://fastly.picsum.photos/id/411/1080/1920.jpg?hmac=lOOufV88QhuRyjHpbzxU9sf1Egye4crSar2t_wuVk9M" alt="Test QR Code" style={previewStyle} /> */}
