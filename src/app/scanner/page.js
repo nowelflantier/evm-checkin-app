@@ -41,9 +41,8 @@ export default function ScannerPage() {
       setMessage(result.message);
       setTimeout(() => {
         setMessage('');
-        setScannedData(null);
-        setLastScannedTime(0); // Reset last scanned time to allow new scans
-      }, 3000); // Hide message after 3 seconds and reset scan data
+        setScannedData(null); // Reset scannedData to allow new scans
+      }, 3000); // Hide message and reset after 3 seconds
     }
   };
 
@@ -65,6 +64,9 @@ export default function ScannerPage() {
         style={previewStyle}
         onError={handleError}
         onScan={handleScan}
+        constraints={{
+          video: { facingMode: 'environment' }
+        }}
       />
       {scannedData && <p className={styles.scannedData}>Scanned UID: {scannedData}</p>}
       {message && <div className={styles.popup}>{message}</div>}
