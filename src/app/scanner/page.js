@@ -11,19 +11,9 @@ export default function ScannerPage() {
   const [scannedData, setScannedData] = useState(null);
   const [message, setMessage] = useState('');
   const [lastScannedTime, setLastScannedTime] = useState(0);
-  const [cameraId, setCameraId] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const getCameras = async () => {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter(device => device.kind === 'videoinput');
-      const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back')) || videoDevices[0];
-      setCameraId(backCamera.deviceId);
-    };
-
-    getCameras();
-  }, []);
+ 
 
 
   const extractUID = (qrData) => {
@@ -71,12 +61,12 @@ export default function ScannerPage() {
     <div className={styles.container}>
     <h1 className={styles.heading}>Scan Participant QR Code</h1>
     <QrScanner
-      delay={300}
+      scanDelay={300}
       style={previewStyle}
       onError={handleError}
       onScan={handleScan}
       constraints={{
-        video: { deviceId: cameraId }
+        video: { facingMode: 'environment' }
       }}
     />
    {/* Remplace la caméra par une image de test */}
