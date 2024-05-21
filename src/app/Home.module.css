@@ -1,0 +1,33 @@
+.container {
+  text-align: center;
+  padding: 50px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+}
+
+.heading {
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+.description {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.button {
+  background-color: #0070f3;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #005bb5;
+}

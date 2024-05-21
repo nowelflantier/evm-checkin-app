@@ -1,0 +1,38 @@
+/* app/scanner/Scanner.module.css */
+
+.container {
+    position: relative;
+    text-align: center;
+  }
+  
+  .heading {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: white;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .popup {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    z-index: 1;
+  }
+  
+  .scannedData {
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+  

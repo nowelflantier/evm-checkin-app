@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from './Events.module.css';
+
 
 export default function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -37,15 +39,15 @@ export default function EventsPage() {
   }
 
   return (
-    <div>
-      <h1>Select an Event</h1>
-      <ul>
-        {events.map((event) => (
-          <li key={event._id} onClick={() => handleSelectEvent(event._id)}>
-            {event.title} - {event._id}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <div className={styles.container}>
+    <h1 className={styles.heading}>Select an Event</h1>
+    <ul className={styles.list}>
+      {events.map((event) => (
+        <li key={event._id} className={styles.listItem} onClick={() => handleSelectEvent(event._id)}>
+          {event.title}
+        </li>
+      ))}
+    </ul>
+  </div>
   );
 }

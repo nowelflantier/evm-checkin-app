@@ -3,6 +3,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import styles from './EnterToken.module.css';
 
 export default function EnterTokenPage() {
   const [token, setToken] = useState('');
@@ -14,14 +15,15 @@ export default function EnterTokenPage() {
   };
 
   return (
-    <div>
-      <h1>Enter your Eventmaker API Token</h1>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Enter your Eventmaker API Token</h1>
       <input
         type="text"
         value={token}
         onChange={(e) => setToken(e.target.value)}
+        className={styles.input}
       />
-      <button onClick={handleSubmit}>Valider</button>
+      <button onClick={handleSubmit} className={styles.button}>Valider</button>
     </div>
   );
 }

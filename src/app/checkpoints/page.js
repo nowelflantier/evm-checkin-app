@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from './Checkpoints.module.css';
 
 export default function CheckpointsPage() {
   const [checkpoints, setCheckpoints] = useState([]);
@@ -38,11 +39,11 @@ export default function CheckpointsPage() {
   }
 
   return (
-    <div>
-      <h1>Select a Checkpoint</h1>
-      <ul>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Select a Checkpoint</h1>
+      <ul className={styles.list}>
         {checkpoints.map((checkpoint) => (
-          <li key={checkpoint._id} onClick={() => handleSelectCheckpoint(checkpoint._id)}>
+          <li key={checkpoint._id} className={styles.listItem} onClick={() => handleSelectCheckpoint(checkpoint._id)}>
             {checkpoint.name}
           </li>
         ))}

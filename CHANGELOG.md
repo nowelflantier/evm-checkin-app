@@ -11,3 +11,9 @@
 ### Fixed
 - Correction du scanner QR pour utiliser `react-qr-scanner`.
 - Gestion des réponses d'accès `access_status` pour afficher les messages appropriés.
+
+## [v1.1.0] - 2024-05-23
+### Added
+- Première version de l'interface utilisateur (UI) avec un design moderne et convivial.
+- Ajout de nouvelles fonctionnalités pour améliorer l'expérience utilisateur.
+- Optimisation des performances pour une utilisation plus fluide.
