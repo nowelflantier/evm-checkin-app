@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import styles from './Scanner.module.css';
@@ -14,7 +14,7 @@ export default function ScannerPage() {
   const router = useRouter();
 
   const extractUID = (qrData) => {
-    if (qrData.startsWith('MECARD:UID:')) {
+    if (qrData?.startsWith('MECARD:UID:')) {
       const match = qrData.match(/MECARD:UID:([^;]+);/);
       return match ? match[1] : null;
     }
@@ -22,8 +22,15 @@ export default function ScannerPage() {
   };
 
   const handleScan = async (data) => {
+    console.log("handleScan called with data:", data); // Log de débogage
+    if (!data) return; // Exit if data is null
+
     const currentTime = new Date().getTime();
-    if (data && currentTime - lastScannedTime > 2000) {
+    console.log("Current time:", currentTime); // Log de débogage
+
+    if (currentTime - lastScannedTime > 2000) {
+      console.log("Processing scan..."); // Log de débogage
+
       setLastScannedTime(currentTime);
       const uid = extractUID(data.text);
       setScannedData(uid);
@@ -38,6 +45,7 @@ export default function ScannerPage() {
         body: JSON.stringify({ token, checkpointId, uid, eventId }),
       });
       const result = await response.json();
+      console.log("Result:", result); // Log de débogage
       setMessage(result.message);
       setTimeout(() => {
         setMessage('');
@@ -60,7 +68,7 @@ export default function ScannerPage() {
     <div className={styles.container}>
       <h1 className={styles.heading}>Scan Participant QR Code</h1>
       <QrScanner
-        delay={300}
+        scanDelay={300}
         style={previewStyle}
         onError={handleError}
         onScan={handleScan}
