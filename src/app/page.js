@@ -25,16 +25,21 @@ export default function HomePage() {
     checkCameraPermission();
 
     async function checkCameraPermission() {
-      try {
-        const result = await navigator.permissions.query({ name: 'camera' });
-        handlePermissionStatus(result.state);
-
-        // Écoute les changements de statut
-        result.onchange = () => {
+      const storedPermission = localStorage.getItem('cameraPermission');
+      if (storedPermission) {
+        setCameraPermission(storedPermission);
+      } else {
+        try {
+          const result = await navigator.permissions.query({ name: 'camera' });
           handlePermissionStatus(result.state);
-        };
-      } catch (error) {
-        console.error('Failed to query camera permission:', error);
+
+          // Écoute les changements de statut
+          result.onchange = () => {
+            handlePermissionStatus(result.state);
+          };
+        } catch (error) {
+          console.error('Failed to query camera permission:', error);
+        }
       }
     }
 
@@ -57,6 +62,7 @@ export default function HomePage() {
       console.error('Camera access denied:', error);
     }
   };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Welcome to the QR Checkin App!</h1>
